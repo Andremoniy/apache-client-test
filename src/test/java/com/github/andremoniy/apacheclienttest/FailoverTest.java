@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLConnection;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
