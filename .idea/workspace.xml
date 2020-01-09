@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="42c286f9-95ce-4f9d-9ee0-c3e66ab36362" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +40,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/test/java" />
     </key>
   </component>
@@ -57,7 +56,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.FailoverTest.testFailoverWithURL">
     <configuration default="true" type="Applet">
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <method v="2">
@@ -81,6 +80,23 @@
       <option name="PACKAGE_NAME" value="com.github.andremoniy.apacheclienttest" />
       <option name="MAIN_CLASS_NAME" value="com.github.andremoniy.apacheclienttest.FailoverTest" />
       <option name="METHOD_NAME" value="shouldFailoverToAnotherIp" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="FailoverTest.testFailoverWithURL" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="apache-client-test" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.github.andremoniy.apacheclienttest.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.github.andremoniy.apacheclienttest" />
+      <option name="MAIN_CLASS_NAME" value="com.github.andremoniy.apacheclienttest.FailoverTest" />
+      <option name="METHOD_NAME" value="testFailoverWithURL" />
       <option name="TEST_OBJECT" value="method" />
       <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
       <method v="2">
@@ -114,6 +130,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.FailoverTest.testFailoverWithURL" />
         <item itemvalue="JUnit.FailoverTest.shouldFailoverToAnotherIp" />
       </list>
     </recent_temporary>
@@ -129,6 +146,14 @@
       <option name="presentableId" value="Default" />
       <updated>1578600944388</updated>
     </task>
+    <task id="LOCAL-00001" summary="gitignore + surfire">
+      <created>1578603207855</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1578603207855</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -141,5 +166,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="gitignore + surfire" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore + surfire" />
   </component>
 </project>
