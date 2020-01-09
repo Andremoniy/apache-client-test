@@ -1,6 +1,7 @@
 package com.github.andremoniy.apacheclienttest;
 
 import org.apache.http.StatusLine;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -17,6 +18,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FailoverTest {
 
+    private static final int CONNECTION_TIMEOUT = 5000;
+    private static final int READ_TIMEOUT = 2000;
+
     @BeforeEach
     void printTestName(TestInfo testInfo) {
         System.out.println("Running " + testInfo.getTestMethod().get().getName()+"...");
@@ -28,8 +32,14 @@ class FailoverTest {
 
         // When
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
-            HttpGet httpget = new HttpGet("https://www.twitter.com");
-            try (CloseableHttpResponse response = httpclient.execute(httpget)) {
+            HttpGet httpGet = new HttpGet("https://www.twitter.com");
+            final RequestConfig requestConfig = RequestConfig.custom()
+                    .setConnectionRequestTimeout(CONNECTION_TIMEOUT)
+                    .setConnectTimeout(CONNECTION_TIMEOUT)
+                    .setSocketTimeout(CONNECTION_TIMEOUT)
+                    .build();
+            httpGet.setConfig(requestConfig);
+            try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
                 // Then
                 final StatusLine statusLine = response.getStatusLine();
                 System.out.println("Status line (Apache client): " + statusLine);
@@ -44,8 +54,8 @@ class FailoverTest {
         final URL url = new URL("https://www.twitter.com");
         final HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
-        urlConnection.setConnectTimeout(5000);
-        urlConnection.setReadTimeout(2000);
+        urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+        urlConnection.setReadTimeout(READ_TIMEOUT);
 
         // When
         urlConnection.connect();
