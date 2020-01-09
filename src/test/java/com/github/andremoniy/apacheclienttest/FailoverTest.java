@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FailoverTest {
 
-    private static final int CONNECTION_TIMEOUT = 5000;
+    private static final int CONNECTION_TIMEOUT = 15000;
     private static final int READ_TIMEOUT = 2000;
 
     @BeforeEach
@@ -54,7 +54,7 @@ class FailoverTest {
         final URL url = new URL("https://www.twitter.com");
         final HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
-        urlConnection.setConnectTimeout(CONNECTION_TIMEOUT);
+        urlConnection.setConnectTimeout(3000);
         urlConnection.setReadTimeout(READ_TIMEOUT);
 
         // When
