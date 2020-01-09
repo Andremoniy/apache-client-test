@@ -26,7 +26,7 @@ class FailoverTest {
             try (CloseableHttpResponse response = httpclient.execute(httpget)) {
                 // Then
                 final StatusLine statusLine = response.getStatusLine();
-                System.out.println(statusLine);
+                System.out.println("Status line (Apache client): " + statusLine);
                 assertEquals(200, statusLine.getStatusCode());
             }
         }
@@ -43,7 +43,7 @@ class FailoverTest {
         urlConnection.connect();
 
         final int responseCode = urlConnection.getResponseCode();
-        System.out.println(responseCode);
+        System.out.println("Response code (URLConnection): " + responseCode);
         assertEquals(200, responseCode);
     }
 
