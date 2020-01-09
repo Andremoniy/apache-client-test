@@ -5,7 +5,9 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
@@ -14,6 +16,11 @@ import java.net.URL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FailoverTest {
+
+    @BeforeEach
+    void printTestName(TestInfo testInfo) {
+        System.out.println("Running " + testInfo.getTestMethod().get().getName()+"...");
+    }
 
     @Test
     void shouldFailoverToAnotherIpWithApacheClient() throws IOException {
