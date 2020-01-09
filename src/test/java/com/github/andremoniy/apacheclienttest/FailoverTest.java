@@ -44,6 +44,8 @@ class FailoverTest {
         final URL url = new URL("https://www.twitter.com");
         final HttpsURLConnection urlConnection = (HttpsURLConnection) url.openConnection();
         urlConnection.setRequestMethod("GET");
+        urlConnection.setConnectTimeout(5000);
+        urlConnection.setReadTimeout(2000);
 
         // When
         urlConnection.connect();
