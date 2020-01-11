@@ -6,6 +6,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
@@ -72,6 +73,9 @@ class FailoverTest {
             httpGet.setConfig(requestConfig);
             try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
                 // Then
+                final PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+                System.out.println("Routes: " + poolingHttpClientConnectionManager.getRoutes());
+                System.out.println("Connection manager stats: " + poolingHttpClientConnectionManager.getTotalStats());
                 final StatusLine statusLine = response.getStatusLine();
                 System.out.println("Status line (Apache client): " + statusLine);
                 assertEquals(200, statusLine.getStatusCode());
