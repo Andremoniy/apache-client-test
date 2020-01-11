@@ -48,7 +48,13 @@ class FailoverTest {
     void shoudUpdateDns() throws IOException, InterruptedException {
         for (int i = 0; i < 20; i++) {
 //            System.out.println(execCmd("dig twitter.com"));
-            checkConnection();
+            try {
+                checkConnection();
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println(execCmd("dig twitter.com"));
+                throw e;
+            }
             System.out.println("\n\nWaiting 30 seconds...");
             TimeUnit.SECONDS.sleep(30);
             System.out.println("\n\n");
