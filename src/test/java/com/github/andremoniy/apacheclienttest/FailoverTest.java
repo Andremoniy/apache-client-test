@@ -27,7 +27,7 @@ class FailoverTest {
     @BeforeEach
     void printTestName(final TestInfo testInfo) {
         assertTrue(testInfo.getTestMethod().isPresent());
-        System.out.println("Running " + testInfo.getTestMethod().get().getName()+"...");
+        System.out.println("Running " + testInfo.getTestMethod().get().getName() + "...");
     }
 
     @Test
@@ -47,22 +47,37 @@ class FailoverTest {
 
     @Test
     void shoudUpdateDns() throws IOException, InterruptedException {
-        for (int i = 0; i < 20; i++) {
-//            System.out.println(execCmd("dig twitter.com"));
-            try {
-                checkConnection();
-            } catch (Exception e) {
-                e.printStackTrace();
+        try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
+            HttpGet httpGet = new HttpGet("https://www.twitter.com");
+            final RequestConfig requestConfig = RequestConfig.custom()
+                    .setConnectionRequestTimeout(CONNECTION_TIMEOUT)
+                    .setConnectTimeout(CONNECTION_TIMEOUT)
+                    .setSocketTimeout(CONNECTION_TIMEOUT)
+                    .build();
+            httpGet.setConfig(requestConfig);
+
+            for (int i = 0; i < 20; i++) {
                 System.out.println(execCmd("dig twitter.com"));
-                throw e;
+                System.out.println("\n\nConnecting to twitter.com...\n\n");
+                try (CloseableHttpResponse response = httpclient.execute(httpGet)) {
+                    // Then
+                    final PoolingHttpClientConnectionManager poolingHttpClientConnectionManager = new PoolingHttpClientConnectionManager();
+                    System.out.println("Routes: " + poolingHttpClientConnectionManager.getRoutes());
+                    System.out.println("Connection manager stats: " + poolingHttpClientConnectionManager.getTotalStats());
+                    final StatusLine statusLine = response.getStatusLine();
+                    System.out.println("Status line (Apache client): " + statusLine);
+                    assertEquals(200, statusLine.getStatusCode());
+                }
+
+                System.out.println("\n\nWaiting 30 seconds...");
+                TimeUnit.SECONDS.sleep(30);
+                System.out.println("\n\n");
             }
-            System.out.println("\n\nWaiting 30 seconds...");
-            TimeUnit.SECONDS.sleep(30);
-            System.out.println("\n\n");
         }
     }
 
     private void checkConnection() throws IOException {
+        System.out.println("\n\nConnecting to twitter.com...\n\n");
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet("https://www.twitter.com");
             final RequestConfig requestConfig = RequestConfig.custom()
