@@ -39,8 +39,8 @@ class FailoverTest {
     void shoudUpdateDns() throws IOException, InterruptedException {
         for (int i = 0; i < 20; i++) {
             checkConnection();
-            System.out.println("\n\nWaiting 1 minute...");
-            TimeUnit.MINUTES.sleep(1);
+            System.out.println("\n\nWaiting 30 seconds...");
+            TimeUnit.SECONDS.sleep(30);
             System.out.println("\n\n");
         }
     }
