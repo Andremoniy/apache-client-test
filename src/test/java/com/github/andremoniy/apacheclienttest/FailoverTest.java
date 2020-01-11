@@ -13,12 +13,13 @@ import org.junit.jupiter.api.TestInfo;
 import javax.net.ssl.HttpsURLConnection;
 import java.io.IOException;
 import java.net.URL;
+import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FailoverTest {
 
-    private static final int CONNECTION_TIMEOUT = 15000;
+    private static final int CONNECTION_TIMEOUT = 10000;
     private static final int READ_TIMEOUT = 2000;
 
     @BeforeEach
@@ -31,6 +32,20 @@ class FailoverTest {
         // Given
 
         // When
+        checkConnection();
+    }
+
+    @Test
+    void shoudUpdateDns() throws IOException, InterruptedException {
+        for (int i = 0; i < 20; i++) {
+            checkConnection();
+            System.out.println("\n\nWaiting 1 minute...");
+            TimeUnit.MINUTES.sleep(1);
+            System.out.println("\n\n");
+        }
+    }
+
+    private void checkConnection() throws IOException {
         try (CloseableHttpClient httpclient = HttpClients.createDefault()) {
             HttpGet httpGet = new HttpGet("https://www.twitter.com");
             final RequestConfig requestConfig = RequestConfig.custom()
