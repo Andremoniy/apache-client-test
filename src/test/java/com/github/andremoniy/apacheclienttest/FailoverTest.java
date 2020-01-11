@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class FailoverTest {
 
-    private static final int CONNECTION_TIMEOUT = 10000;
+    private static final int CONNECTION_TIMEOUT = 3000;
     private static final int READ_TIMEOUT = 2000;
 
     @BeforeEach
