@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.concurrent.TimeUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class FailoverTest {
 
@@ -23,7 +24,8 @@ class FailoverTest {
     private static final int READ_TIMEOUT = 2000;
 
     @BeforeEach
-    void printTestName(TestInfo testInfo) {
+    void printTestName(final TestInfo testInfo) {
+        assertTrue(testInfo.getTestMethod().isPresent());
         System.out.println("Running " + testInfo.getTestMethod().get().getName()+"...");
     }
 
@@ -35,9 +37,17 @@ class FailoverTest {
         checkConnection();
     }
 
+    // https://stackoverflow.com/a/20624914/1479414
+    @SuppressWarnings("SameParameterValue")
+    private static String execCmd(final String cmd) throws java.io.IOException {
+        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
+
     @Test
     void shoudUpdateDns() throws IOException, InterruptedException {
         for (int i = 0; i < 20; i++) {
+            System.out.println(execCmd("dig twitter.com"));
             checkConnection();
             System.out.println("\n\nWaiting 30 seconds...");
             TimeUnit.SECONDS.sleep(30);

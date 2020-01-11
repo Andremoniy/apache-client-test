@@ -53,6 +53,11 @@
                         <version>5.5.0</version>
                     </dependency>
                 </dependencies>
+                <configuration>
+                    <argLine>
+                        -Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog -Dorg.apache.commons.logging.simplelog.showdatetime=true -Dorg.apache.commons.logging.simplelog.log.org.apache.http.impl.conn=DEBUG -Dorg.apache.commons.logging.simplelog.log.org.apache.http.impl.client=DEBUG -Dorg.apache.commons.logging.simplelog.log.org.apache.http.client=DEBUG
+                    </argLine>
+                </configuration>
             </plugin>
         </plugins>
     </build>
